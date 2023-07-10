@@ -1,0 +1,32 @@
+// 引入样式重置文件
+@import './normalize.scss';
+
+:root {
+  box-sizing: border-box;
+
+  *,
+  ::before,
+  ::after {
+    box-sizing: inherit;
+  }
+}
+
+// 滚动条外观设置
+::-webkit-scrollbar {
+  width: 15px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #f5f5f5;
+}
+
+::-webkit-scrollbar-thumb {
+  width: 10px;
+  background-color: #2196f3;
+  border-radius: 10px;
+}
+
+// element-plus 字体图标
+.el-icon {
+  vertical-align: -0.1em;
+}
