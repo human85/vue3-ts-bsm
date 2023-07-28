@@ -17,7 +17,10 @@ defineProps({
 const { category1List, category2List, category3List, cate1Id, cate2Id, cate3Id } = storeToRefs(useCategoryStore())
 const { getCategory1List } = useCategoryStore()
 // 页面挂载获取一级分类数据
-onMounted(() => getCategory1List())
+onMounted(() => {
+  if (cate1Id.value) return
+  getCategory1List()
+})
 </script>
 
 <template>

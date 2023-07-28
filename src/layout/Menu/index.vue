@@ -29,7 +29,6 @@ defineOptions({
         {{ item.children[0].meta.title }}
       </template>
     </el-menu-item>
-
     <!-- 一个以上子路由 -->
     <el-sub-menu :index="item.path" v-if="item.children && item.children.length > 1">
       <template #title>

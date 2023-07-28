@@ -2,7 +2,7 @@
 import { useCategoryStore } from '@/store/categoryStore'
 import { nextTick, ref } from 'vue'
 import type { Attr, AttrValue } from '@/api/product/attr/type'
-import { addorUpdateAttrApi } from '@/api/product/attr/index'
+import { addorUpdateAttrApi, deleteAttrApi } from '@/api/product/attr/index'
 import { ElMessage } from 'element-plus'
 import type { InputInstance } from 'element-plus'
 
@@ -24,15 +24,34 @@ const reqData = ref<Attr>({
 // 添加属性按钮的回调
 function addAttr() {
   // 清除上次数据
-  Object.assign(reqData.value, {
+  reqData.value = {
     attrName: '',
     categoryId: 0,
     categoryLevel: 3,
     attrValueList: []
-  })
+  }
   scene.value = 1
   // 获取当前三级分类 id
   reqData.value.categoryId = categoryStore.cate3Id as number
+}
+
+// 编辑属性的回调
+function editAttr(row: Attr) {
+  scene.value = 1
+  // 深拷贝
+  reqData.value = JSON.parse(JSON.stringify(row))
+}
+
+// 删除属性的回调
+async function deleteAttr(row: Attr) {
+  const res = await deleteAttrApi(row.id as number)
+  if (res.code !== 200) {
+    ElMessage.error('属性删除失败😅')
+    return
+  }
+  ElMessage.success('属性删除成功🧐')
+  // 获取更新后的数据
+  categoryStore.getAttrList()
 }
 
 // 取消添加属性的回调
@@ -97,9 +116,9 @@ function changeMode(row: AttrValue, $index?: number) {
     <el-card style="margin: 20px 0">
       <!-- 属性展示表格 -->
       <div v-show="!scene">
-        <el-button @click="addAttr" type="primary" icon="Plus" :disabled="categoryStore.cate3Id ? false : true"
-          >添加平台属性</el-button
-        >
+        <el-button @click="addAttr" type="primary" icon="Plus" :disabled="categoryStore.cate3Id ? false : true">
+          添加平台属性
+        </el-button>
         <el-table :data="categoryStore.attrList" border>
           <el-table-column label="序号" type="index" width="80" align="center" />
           <el-table-column label="属性名" prop="attrName" width="200" />
@@ -109,9 +128,9 @@ function changeMode(row: AttrValue, $index?: number) {
             </template>
           </el-table-column>
           <el-table-column label="操作" width="200">
-            <template #default>
-              <el-button icon="Edit" type="primary" size="small">编辑</el-button>
-              <el-button icon="Delete" type="danger" size="small"> 删除 </el-button>
+            <template #default="{ row }">
+              <el-button icon="Edit" type="primary" size="small" @click="editAttr(row)">编辑</el-button>
+              <el-button icon="Delete" type="danger" size="small" @click="deleteAttr(row)">删除</el-button>
             </template>
           </el-table-column>
         </el-table>

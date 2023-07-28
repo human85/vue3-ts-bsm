@@ -18,7 +18,7 @@ const router = createRouter({
 router.beforeEach(async to => {
   // 动态设置文档标题
   document.title = setting.title + '-' + to.meta.title
-  const { token, userInfo, getUserInfo } = useUserStore()
+  const { token, userInfo, getUserInfo, menuRoutes } = useUserStore()
   // 显示加载条
   NProgress.start()
   if (token) {
@@ -26,9 +26,11 @@ router.beforeEach(async to => {
     if (to.path === '/login') {
       return { path: '/' }
     } else {
-      // 没有用户信息
-      if (!userInfo?.name) {
+      // 没有用户信息(刷新页面自动获取用户信息)
+      if (!userInfo?.name || !menuRoutes) {
         await getUserInfo()
+        // 避免异步路由未加载完成便跳转
+        return to.path
       }
     }
   } else {

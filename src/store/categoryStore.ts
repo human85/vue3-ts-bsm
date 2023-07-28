@@ -55,9 +55,9 @@ export const useCategoryStore = defineStore('category', () => {
   }
 
   // 监听三级分类选项改变
-  watch(cate3Id, async newId => {
+  watch(cate3Id, newId => {
     attrList.value = []
-    if (!cate2Id.value || !newId) return
+    if (!newId) return
     getAttrList()
   })
 

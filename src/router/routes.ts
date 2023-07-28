@@ -26,6 +26,7 @@ export const constanRoutes: RouteRecordRaw[] = [
       {
         path: '/layout/home',
         component: () => import('@/views/Home/index.vue'),
+        name: 'home',
         meta: {
           title: '首页',
           hidden: false,
@@ -33,16 +34,6 @@ export const constanRoutes: RouteRecordRaw[] = [
         }
       }
     ]
-  },
-  {
-    path: '/404',
-    name: 'NotFound',
-    component: () => import('@/views/NotFound/index.vue'),
-    meta: {
-      title: '404',
-      hidden: true,
-      icon: 'DocumentDelete'
-    }
   },
   {
     path: '/screen',
@@ -55,9 +46,22 @@ export const constanRoutes: RouteRecordRaw[] = [
     }
   },
   {
+    path: '/:pathMatch(.*)*',
+    name: '404',
+    component: () => import('@/views/NotFound/index.vue'),
+    meta: {
+      title: '404',
+      hidden: true
+    }
+  }
+]
+
+// 异步路由
+export const asyncRoutes: RouteRecordRaw[] = [
+  {
     path: '/acl',
     component: () => import('@/layout/index.vue'),
-    name: 'acl',
+    name: 'Acl',
     meta: {
       title: '权限管理',
       icon: 'Lock'
@@ -67,7 +71,7 @@ export const constanRoutes: RouteRecordRaw[] = [
       {
         path: '/acl/user',
         component: () => import('@/views/Acl/User/index.vue'),
-        name: 'user',
+        name: 'User',
         meta: {
           title: '用户管理',
           icon: 'User'
@@ -76,7 +80,7 @@ export const constanRoutes: RouteRecordRaw[] = [
       {
         path: '/acl/role',
         component: () => import('@/views/Acl/Role/index.vue'),
-        name: 'role',
+        name: 'Role',
         meta: {
           title: '角色管理',
           icon: 'UserFilled'
@@ -85,7 +89,7 @@ export const constanRoutes: RouteRecordRaw[] = [
       {
         path: '/acl/permission',
         component: () => import('@/views/Acl/Permission/index.vue'),
-        name: 'permission',
+        name: 'Permission',
         meta: {
           title: '菜单管理',
           icon: 'Monitor'
@@ -95,7 +99,7 @@ export const constanRoutes: RouteRecordRaw[] = [
   },
   {
     path: '/product',
-    name: 'product',
+    name: 'Product',
     component: () => import('@/layout/index.vue'),
     meta: {
       title: '商品管理',
@@ -106,7 +110,7 @@ export const constanRoutes: RouteRecordRaw[] = [
       {
         path: '/product/trademark',
         component: () => import('@/views/Product/Trademark/index.vue'),
-        name: 'trademark',
+        name: 'Trademark',
         meta: {
           title: '品牌管理',
           icon: 'ShoppingCartFull'
@@ -115,7 +119,7 @@ export const constanRoutes: RouteRecordRaw[] = [
       {
         path: '/product/attr',
         component: () => import('@/views/Product/Attr/index.vue'),
-        name: 'attr',
+        name: 'Attr',
         meta: {
           title: '属性管理',
           icon: 'ChromeFilled'
@@ -124,7 +128,7 @@ export const constanRoutes: RouteRecordRaw[] = [
       {
         path: '/product/spu',
         component: () => import('@/views/Product/Spu/index.vue'),
-        name: 'spu',
+        name: 'Spu',
         meta: {
           title: 'SPU管理',
           icon: 'Calendar'
@@ -133,21 +137,15 @@ export const constanRoutes: RouteRecordRaw[] = [
       {
         path: '/product/sku',
         component: () => import('@/views/Product/Sku/index.vue'),
-        name: 'sku',
+        name: 'Sku',
         meta: {
           title: 'SKU管理',
           icon: 'Orange'
         }
       }
     ]
-  },
-  {
-    path: '/:pathMatch(.*)*',
-    name: 'any',
-    redirect: '/404',
-    meta: {
-      title: '任意路由',
-      hidden: true
-    }
   }
 ]
+
+// 任意路由
+// export const anyRoutes: RouteRecordRaw[] = []

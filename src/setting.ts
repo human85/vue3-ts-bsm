@@ -1,6 +1,6 @@
 // 用于项目 logo 标题配置
 export default {
-  title: '普拉达运营平台',
+  title: '天空之城',
   logo: '/logo.png',
   showLogo: true
 }

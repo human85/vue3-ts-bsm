@@ -62,6 +62,7 @@ export interface Attr {
   categoryId: number
   categoryLevel: number
   attrValueList: AttrValue[]
+  attrIdAndValId?: string // 自定义添加 sku 页面用于收集平台属性 id
 }
 
 export interface AttrListRes extends ResponseData {

@@ -7,7 +7,8 @@ enum API {
   CATEGORY2_URL = 'admin/product/getCategory2',
   CATEGORY3_URL = 'admin/product/getCategory3',
   ATTRINFO_URL = '/admin/product/attrInfoList',
-  UPDATEATTR_URL = '/admin/product/saveAttrInfo'
+  UPDATEATTR_URL = '/admin/product/saveAttrInfo',
+  DELETEATTR_URL = '/admin/product/deleteAttr'
 }
 
 // 服务器 2 号 baseURL
@@ -59,7 +60,7 @@ export function getAttrInfoApi(cate1Id: number, cate2Id: number, cate3Id: number
 }
 
 /**
- * @description 添加或修改品牌基础属性
+ * @description 添加或修改品牌基础属性 根据有无 id 判断
  * @param {object} data 属性对象
  */
 export function addorUpdateAttrApi(data: Attr) {
@@ -67,6 +68,18 @@ export function addorUpdateAttrApi(data: Attr) {
     method: 'POST',
     url: API.UPDATEATTR_URL,
     data,
+    baseURL
+  })
+}
+
+/**
+ * @description 删除商品属性
+ * @param {number} attrId
+ */
+export function deleteAttrApi(attrId: number) {
+  return request<any, AttrListRes>({
+    method: 'DELETE',
+    url: API.DELETEATTR_URL + `/${attrId}`,
     baseURL
   })
 }

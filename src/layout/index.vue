@@ -79,7 +79,7 @@ const { isFold } = storeToRefs(useSettingStore())
     padding: 0 1em;
     width: calc(100% - $base-menu-width);
     height: $base-tabbar-height;
-    background-image: linear-gradient(to right, #ffffff, #f3f2d3);
+    border-bottom: 1px solid #d6cece;
     transition: all 0.3s linear;
 
     &.fold {
